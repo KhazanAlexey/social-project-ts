@@ -1,0 +1,24 @@
+.photo {
+    width: 100px;
+    height: 100px;
+
+}
+.selectedPage {
+    font-weight: bold;
+    cursor: pointer;
+    color: gold;
+}
+.hoverPage:hover{
+    cursor: pointer;
+    color: aquamarine;
+}
+.pages {
+   /* color: brown;
+    float: left;
+    display: block;*/
+}
+.selected {
+    font-weight: bold;
+    cursor: pointer;
+    color: gold;
+}
