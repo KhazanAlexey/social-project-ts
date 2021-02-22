@@ -1,9 +1,5 @@
 const SET_USER_DATA = "SETUSERDATA"
-const UNFOLLOW = "UNFOLLOW"
-const SETUSERS = "SETUSERS"
-const SETPAGE = "SETAPGE"
-const SETTOTALCOUNT= "SETTOTALCOUNT"
-const TOOGLE_IS_FETCHING= "TOOGLEISFETCHING"
+
 
 
 type SETUSERDATAType = {
@@ -16,9 +12,9 @@ const initialState: inittype  = {
     id: null,
     email: null,
     login: null,
-    isFetching: true
+    isAuth: true
 }
-export type inittype = AuthType & {isFetching: boolean}
+export type inittype = AuthType & {isAuth: boolean}
 
 
 export type AuthType={
@@ -37,7 +33,7 @@ export function AuthReducer(state: inittype = initialState, action: ActionsTypes
     switch (action.type) {
         case "SETUSERDATA":
             return {
-                ...state,...action.data
+                ...state,...action.data,isAuth:true
             }
 
         default:

@@ -6,16 +6,7 @@ import {Message} from "./Messages/Messages";
 import {useDispatch, useSelector} from "react-redux";
 import {AddMessageTypeAC, ChangeMessageAc, NewMessageType} from "../../redux/dialog-reducer";
 import {RootState} from "../../redux/redux-store";
-import Axios from "axios";
-import {setTotalCount, SetUsers, userType} from "../../redux/User-reducer";
 
-type DialogsPagesType = {
-    /*dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    NewDialogMessage:string
-    onclickHandler:()=>void
-    changeHandler:(text:string)=>void*/
-}
 
 export function DialogsHook(props: any) {
 
@@ -24,9 +15,7 @@ export function DialogsHook(props: any) {
     const NewDialogMessage = useSelector<RootState, string>(state => state.dialogsPage.NewDialogMessage)
     const dialogs = useSelector<RootState, Array<DialogType>>(state => state.dialogsPage.dialogs)
     const messages = useSelector<RootState, Array<MessageType>>(state => state.dialogsPage.messages)
-const currentPage=useSelector<RootState,number>(state=> state.usersPage.currentPage)
-    const pageSize=useSelector<RootState,number>(state=> state.usersPage.pageSize)
-const users= useSelector<RootState,any>(state=> state.usersPage.users)
+    const users = useSelector<RootState, any>(state => state.usersPage.users)
 
 
     let dialogsElements = dialogs.map(d =>
@@ -60,15 +49,7 @@ const users= useSelector<RootState,any>(state=> state.usersPage.users)
             </div>
             <button onClick={onclickHandler}>Send</button>
         </div>
-
         <div>
-
-
-
         </div>
-
-
-
-
     </div>
 }

@@ -37,7 +37,7 @@ type MSTPType={
     posts: Array<PostType>
     newPostText: string
 }
-const MDTP = (dispatch: any) => {
+const MDTP = (dispatch:any) => {
     return {
         addPost: () => {
             dispatch(AddPostAC())

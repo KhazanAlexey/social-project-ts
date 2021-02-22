@@ -6,17 +6,14 @@ import {
     setTotalCount,
     SetUsers,
     UnfollowAc,
-    usersTypeRes
+    usersTypeRes,
+    toggleisfolowingProgress,
+    getUsersTC
 } from "../../redux/User-reducer";
 import {RootState} from "../../redux/redux-store";
 import UsersClass from "./UsersClass";
-import Axios, {AxiosResponse, AxiosError} from 'axios';
 import {Prealoader} from "../common/Preloader";
-
-
-
-
-
+import {UsersAPI} from "../../api/api";
 
 
 type MSTPType = {
@@ -25,93 +22,87 @@ type MSTPType = {
     totalCount: number
     currentPage: number
     isFetching: boolean
+    followingProgress: Array<number>
+
 
 }
 type MDTPType = {
-    follow: (id: string) => void
-    unfollow: (id: string) => void
-    setUsers: (users: any) => void
+    follow: (id: number) => void
+    unfollow: (id: number) => void
     setCurrentPage: (page: number) => void
     setTotalCount: (count: number) => void
-    setToogle: (isFetching: boolean) => void
-
+    // setToogle: (isFetching: boolean) => void
+    toggleisfolowingProgress: (ifFetching: boolean,id:number) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
 
 }
 
 
 type propstype = {
     users: Array<usersTypeRes>
-    follow: (id: string) => void
-    unfollow: (id: string) => void
-    setUsers: (users: any) => void
+    follow: (id: number) => void
+    unfollow: (id: number) => void
     pageSize: number
     totalCount: number
     currentPage: number
     setCurrentPage: (page: number) => void
-    setTotalCount: (count:number)=> void
+    setTotalCount: (count: number) => void
     isFetching: boolean
-    setToogle: (isFetching: boolean) => void
+    toggleisfolowingProgress: (isFetching: boolean,id:number) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
+    followingProgress: Array<number>
+
 }
 
 
 class UsersContainer extends React.Component<propstype, any> {
     componentDidMount() {
-        this.props.setToogle(true)
 
-        Axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-
-            .then((res) => {
-                //isFetching setToogle
-                this.props.setToogle(false)
-                this.props.setUsers(res.data.items)
-                this.props.setTotalCount(res.data.totalCount)
-
-            })
-
-
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        // UsersAPI.getUsers(this.props.currentPage,this.props.pageSize)
+        //     .then((data) => {
+        //         //isFetching setToogle
+        //         this.props.setToogle(false)
+        //         this.props.setUsers(data.items)
+        //         this.props.setTotalCount(data.totalCount)
+        //
+        //     })
     }
 
     onPageChanged = (p: number) => {
         this.props.setCurrentPage(p)
-        this.props.setToogle(true)
-        Axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
-            .then((res) => {
-                this.props.setToogle(false)
-                this.props.setUsers(res.data.items)
+        this.props.getUsersTC(p, this.props.pageSize)
 
-            })
+
+        // .finally(()=>{ this.props.setToogle(false)})
     }
 
     render() {
 
 
-        return  <>
-            {this.props.isFetching? <Prealoader />:  <div>
+        return <>
+            {this.props.isFetching ? <Prealoader/> : <div>
                 <UsersClass users={this.props.users}
                             onPageChanged={this.onPageChanged}
                             follow={this.props.follow}
-                            unfollow={this.props.follow}
-                            setUsers={this.props.setUsers}
+                            unfollow={this.props.unfollow}
                             pageSize={this.props.pageSize}
                             totalCount={this.props.totalCount}
                             currentPage={this.props.currentPage}
                             setCurrentPage={this.props.setCurrentPage}
+                            toggleisfolowingProgress={this.props.toggleisfolowingProgress}
                             setTotalCount={this.props.setTotalCount}
+                            followingProgress={this.props.followingProgress}
                 />
-
-
-
-
 
 
             </div>}
 
-            </>
+        </>
     }
 
 
 }
-
 
 
 const MSTP = (state: RootState) => {
@@ -120,17 +111,20 @@ const MSTP = (state: RootState) => {
         pageSize: state.usersPage.pageSize,
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingProgress: state.usersPage.followingProgress
+
 
     }
 }
 
 
-
 export default connect<MSTPType, MDTPType, {}, RootState>(MSTP,
-    {follow:FollowAc  ,
-        unfollow:UnfollowAc,
-        setUsers:SetUsers,
-        setCurrentPage:SetCurrentPageAc,
-        setTotalCount:setTotalCount,
-        setToogle:setToogle})(UsersContainer)
+    {
+        follow: FollowAc,
+        unfollow: UnfollowAc,
+        setCurrentPage: SetCurrentPageAc,
+        setTotalCount: setTotalCount,
+        toggleisfolowingProgress: toggleisfolowingProgress,
+        getUsersTC: getUsersTC
+    })(UsersContainer)

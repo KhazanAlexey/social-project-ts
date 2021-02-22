@@ -5,19 +5,20 @@ import {Myposts} from "./MyPosts/Myposts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionsTypes, PostType} from "../../redux/store";
 import MypostsConrainer from "./MyPosts/MypostsContainer";
-type ProfilePropsType={
+import {ProfileType} from "../../redux/profile-reducer";
+
+type ProfilePropsType = {
     // posts:Array<PostType>
     // newPostText:string
     // dispatch:(action:ActionsTypes)=>void
-    profile:any
+    profile: any
 
 }
-export const Profile: React.FC<ProfilePropsType>=(props)=> {
+export const Profile: React.FC<ProfilePropsType> = (props) => {
 
-
-return <div className={s.content}>
-    <ProfileInfo profile={props.profile}/>
-    <MypostsConrainer/>
-</div>
+    return <div className={s.content}>
+        <ProfileInfo profile={props.profile}/>
+        <MypostsConrainer/>
+    </div>
 
 }

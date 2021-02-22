@@ -20,10 +20,11 @@ export const ProfileInfo: React.FC<ProfilePropsType> = (props) => {
             <img src={props.profile.photos.large}/>
             <img src={props.profile.photos.small}/>
 
-            <div>{props.profile.fullName}
+            <div>Full name :{props.profile.fullName}
                 <div>{props.profile.contacts.facebook}</div>
                 <div>{props.profile.contacts.github}</div>
                 <div>{props.profile.contacts.website}</div>
+                <div>Looking for a job :{JSON.stringify(props.profile.lookingForAJob)}</div>
                 ava + discrtptoi
             </div>
         </div>
