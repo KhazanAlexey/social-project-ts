@@ -8,7 +8,6 @@ import {store} from "./redux/redux-store";
 import {Provider} from "react-redux";
 
 
-const state = store.getState()
 
 
     ReactDOM.render(

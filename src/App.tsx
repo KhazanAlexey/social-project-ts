@@ -8,6 +8,7 @@ import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from './Components/Users/Users-container';
 import {DialogsHook} from "./Components/Dialogs/DialogsHook";
 import ProfileContainerWithUrl from "./Components/Profile/Profile-Container";
+import {Login} from "./Components/Login/Login";
 
 
 
@@ -27,6 +28,7 @@ function App(props:any) {
                     <Route path='/dialogs' render={() => <DialogsContainer
                     />}/>
                     <Route path='/users' render={()=><UsersContainer/>}/>
+                    <Route path='/login' render={()=><Login/>}/>
 
                 </div>
             </div>

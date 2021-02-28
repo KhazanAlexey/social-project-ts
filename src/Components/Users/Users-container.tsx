@@ -14,6 +14,7 @@ import {RootState} from "../../redux/redux-store";
 import UsersClass from "./UsersClass";
 import {Prealoader} from "../common/Preloader";
 import {UsersAPI} from "../../api/api";
+import {compose} from "redux";
 
 
 type MSTPType = {
@@ -32,7 +33,7 @@ type MDTPType = {
     setCurrentPage: (page: number) => void
     setTotalCount: (count: number) => void
     // setToogle: (isFetching: boolean) => void
-    toggleisfolowingProgress: (ifFetching: boolean,id:number) => void
+    toggleisfolowingProgress: (ifFetching: boolean, id: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
 
 }
@@ -48,7 +49,7 @@ type propstype = {
     setCurrentPage: (page: number) => void
     setTotalCount: (count: number) => void
     isFetching: boolean
-    toggleisfolowingProgress: (isFetching: boolean,id:number) => void
+    toggleisfolowingProgress: (isFetching: boolean, id: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
     followingProgress: Array<number>
 
@@ -119,12 +120,26 @@ const MSTP = (state: RootState) => {
 }
 
 
-export default connect<MSTPType, MDTPType, {}, RootState>(MSTP,
-    {
-        follow: FollowAc,
-        unfollow: UnfollowAc,
-        setCurrentPage: SetCurrentPageAc,
-        setTotalCount: setTotalCount,
-        toggleisfolowingProgress: toggleisfolowingProgress,
-        getUsersTC: getUsersTC
-    })(UsersContainer)
+// export default connect<MSTPType, MDTPType, {}, RootState>(MSTP,
+//     {
+//         follow: FollowAc,
+//         unfollow: UnfollowAc,
+//         setCurrentPage: SetCurrentPageAc,
+//         setTotalCount: setTotalCount,
+//         toggleisfolowingProgress: toggleisfolowingProgress,
+//         getUsersTC: getUsersTC
+//     })(UsersContainer)
+
+export default compose<React.ComponentType>(
+    connect<MSTPType, MDTPType, {}, RootState>(MSTP,
+        {
+            follow: FollowAc,
+            unfollow: UnfollowAc,
+            setCurrentPage: SetCurrentPageAc,
+            setTotalCount: setTotalCount,
+            toggleisfolowingProgress: toggleisfolowingProgress,
+            getUsersTC: getUsersTC
+        })
+)
+
+(UsersContainer)

@@ -16,7 +16,7 @@ export function DialogsHook(props: any) {
     const dialogs = useSelector<RootState, Array<DialogType>>(state => state.dialogsPage.dialogs)
     const messages = useSelector<RootState, Array<MessageType>>(state => state.dialogsPage.messages)
     const users = useSelector<RootState, any>(state => state.usersPage.users)
-
+    const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth)
 
     let dialogsElements = dialogs.map(d =>
         <DialogItem name={d.name} id={d.id}/>
@@ -33,7 +33,7 @@ export function DialogsHook(props: any) {
 
         }
     }
-
+alert(isAuth)
     return <div className={s.dialogs}>
 
         <div className={s.dialogsitem}>

@@ -1,48 +1,21 @@
-import React, {ChangeEvent} from "react";
-import s from './Dialogs.module.css'
-import {ActionsTypes, DialogType, MessageType, StoreType} from "../../redux/store";
-import {DialogItem} from "./DialogsItem/DialogsItem";
-import {Message} from "./Messages/Messages";
-import {Simulate} from "react-dom/test-utils";
+import React from "react";
+import { DialogType, MessageType} from "../../redux/store";
 import {AddMessageTypeAC, ChangeMessageAc} from "../../redux/dialog-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
+import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
+import { compose } from "redux";
 
-type DialogsPageType = {
+
+
+
+
+type MSTPType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     NewDialogMessage: string
-    dispatch: (action: ActionsTypes) => void
 
-}
-
-
-/*export const DialogsContainer: React.FC<DialogsPageType> = (props) => {
-
-    const onclickHandler = () => {
-        props.dispatch(AddMessageTypeAC())
-    }
-    const changeHandler = (text: string) => {
-
-        props.dispatch(ChangeMessageAc(text))
-
-    }
-
-
-    return <>
-        <Dialogs dialogs={props.dialogs}
-                 messages={props.messages}
-                 NewDialogMessage={props.NewDialogMessage}
-                 onclickHandler={onclickHandler}
-                 changeHandler={changeHandler}
-        />
-    </>
-}*/
-type MSTPType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>,
-    NewDialogMessage: string
 }
 
 type MDTPType = {
@@ -52,7 +25,7 @@ type MDTPType = {
 const MSTP = (state: RootState) => ({
     dialogs: state.dialogsPage.dialogs,
     messages: state.dialogsPage.messages,
-    NewDialogMessage: state.dialogsPage.NewDialogMessage
+    NewDialogMessage: state.dialogsPage.NewDialogMessage,
 })
 const MDTP = (dispatch: any) => ({
     onclickHandler: () => {
@@ -63,5 +36,15 @@ const MDTP = (dispatch: any) => ({
     }
 })
 
-const DialogsContainer = connect<MSTPType,MDTPType,{},RootState >(MSTP, MDTP)(Dialogs)
-export default DialogsContainer
+
+// let AuthRedirectComponent=withAuthRedirect(Dialogs)
+//
+// const DialogsContainer = connect<MSTPType,MDTPType,{},RootState >(MSTP, MDTP)(AuthRedirectComponent)
+//
+//
+// export default DialogsContainer
+
+
+export default compose<React.ComponentType>(
+    connect<MSTPType,MDTPType,{},RootState >(MSTP, MDTP),
+    withAuthRedirect)(Dialogs)

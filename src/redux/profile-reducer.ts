@@ -1,3 +1,6 @@
+import {UsersAPI} from "../api/api"
+import {Dispatch} from 'redux'
+
 export type PostType = {
     id: number
     message: string
@@ -12,6 +15,7 @@ export type ProfilePageType = {
 
 export type ProfileType = {
     userId: string
+    aboutMe: null|string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -88,6 +92,14 @@ export type ActionsTypes =
 export const AddPostAC = () => ({type: "ADDPOST"} as const)
 export const ChangePostTextAC = (text: string) => ({type: "CHANGEPOSTTEXT", text: text} as const)
 export const setUserProfile = (profile: any) => ({type: "SETUSERPROFILE", profile})
+export const getUserProfile = (userID:string) => {
+    return (dispatch:Dispatch)=>{
+        UsersAPI.getProfile(userID)
+            .then((res)=>{
+                dispatch(setUserProfile(res.data))
+            })
+    }
+}
 
 export function profileReducer(state = initialState, action: ActionsTypes): returnStateProfilereducerType {
     switch (action.type) {

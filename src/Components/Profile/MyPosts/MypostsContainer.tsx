@@ -7,37 +7,22 @@ import {Myposts, PostsType} from "./Myposts";
 import {RootState} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 
-// type PostsType = {
-//     // newPostText: string
-//     // dispatch: (action: ActionsTypes) => void
-//     // posts: Array<PostType>
-// }
+
 type MDTPtype = {
     addPost: () => void
     newposttextHandler: (text: string) => void
 
 }
-// const MypostsConrainer: React.FC<PostsType> = (props) => {
-//
-//
-//     return <>
-//
-//         <Myposts addPost={addPost} posts={posts}
-//                  newPostText={newPostText}
-//                  newposttextHandler={newposttextHandler}/>
-//
-//     </>
-// }
 const MSTP = (state: RootState) => ({
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText
     }
 )
-type MSTPType={
+type MSTPType = {
     posts: Array<PostType>
     newPostText: string
 }
-const MDTP = (dispatch:any) => {
+const MDTP = (dispatch: any) => {
     return {
         addPost: () => {
             dispatch(AddPostAC())
@@ -50,6 +35,5 @@ const MDTP = (dispatch:any) => {
 // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
 
 
-
-const MypostsConrainer= connect<MSTPType,MDTPtype,{},RootState>(MSTP, MDTP)(Myposts)
+const MypostsConrainer = connect<MSTPType, MDTPtype, {}, RootState>(MSTP, MDTP)(Myposts)
 export default MypostsConrainer
