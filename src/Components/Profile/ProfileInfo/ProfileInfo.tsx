@@ -3,7 +3,7 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 import {Prealoader} from "../../common/Preloader";
 import { ProfileType } from "../../../redux/profile-reducer";
-
+import {ProfileStatus} from "./ProfileStatus"
 type ProfilePropsType = {
     profile: ProfileType
 }
@@ -25,7 +25,7 @@ export const ProfileInfo: React.FC<ProfilePropsType> = (props) => {
                 <div>{props.profile.contacts.github}</div>
                 <div>{props.profile.contacts.website}</div>
                 <div>Looking for a job :{JSON.stringify(props.profile.lookingForAJob)}</div>
-                ava + discrtptoi
+               <ProfileStatus status={'ssss'}/>
             </div>
         </div>
 

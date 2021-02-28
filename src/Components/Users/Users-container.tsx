@@ -2,9 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 import {
     FollowAc,
-    SetCurrentPageAc, setToogle,
+    SetCurrentPageAc,
     setTotalCount,
-    SetUsers,
     UnfollowAc,
     usersTypeRes,
     toggleisfolowingProgress,
@@ -13,7 +12,6 @@ import {
 import {RootState} from "../../redux/redux-store";
 import UsersClass from "./UsersClass";
 import {Prealoader} from "../common/Preloader";
-import {UsersAPI} from "../../api/api";
 import {compose} from "redux";
 
 
@@ -60,14 +58,7 @@ class UsersContainer extends React.Component<propstype, any> {
     componentDidMount() {
 
         this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
-        // UsersAPI.getUsers(this.props.currentPage,this.props.pageSize)
-        //     .then((data) => {
-        //         //isFetching setToogle
-        //         this.props.setToogle(false)
-        //         this.props.setUsers(data.items)
-        //         this.props.setTotalCount(data.totalCount)
-        //
-        //     })
+
     }
 
     onPageChanged = (p: number) => {
@@ -75,7 +66,6 @@ class UsersContainer extends React.Component<propstype, any> {
         this.props.getUsersTC(p, this.props.pageSize)
 
 
-        // .finally(()=>{ this.props.setToogle(false)})
     }
 
     render() {

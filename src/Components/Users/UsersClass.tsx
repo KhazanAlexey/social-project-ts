@@ -20,7 +20,7 @@ type propstype = {
 }
 
 
-function UsersClass(props: propstype) {
+const UsersClass:React.FC<propstype> =React.memo(function (props: propstype) {
 //pagination
     let pageCount = Math.ceil(props.totalCount / props.pageSize)
 
@@ -85,6 +85,6 @@ function UsersClass(props: propstype) {
             <div>city</div>
         </div>)}
     </div>
-}
+})
 
 export default UsersClass
