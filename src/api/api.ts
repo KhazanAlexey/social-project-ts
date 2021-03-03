@@ -1,4 +1,6 @@
 import axios from "axios"
+import {userType} from "../redux/User-reducer";
+import { AuthType } from "../redux/Auth-reducer";
 
 export type PropsType = {
     currentPage: number
@@ -19,7 +21,7 @@ const instance = axios.create({
 // }
 export const UsersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
     },
     Follow(id: number) {
@@ -32,13 +34,46 @@ export const UsersAPI = {
 
     },
     getProfile(userId:string){
-        return instance.get(`profile/${userId}`)
+        return profileAPI.getProfile(userId)
     }
+
 
 
 }
 export const authAPI={
     me(){
-        return instance.get(`auth/me`)
+        return instance.get<MeResponceType>(`auth/me`)
     }
+}
+
+
+
+export const profileAPI= {
+    getProfile(userId:string){
+        return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId:string){
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status:string){
+        return instance.put(`profile/status`,{status:status})
+    }
+}
+
+export type GetItemsType={
+    items:Array<userType>
+    totalCount:number
+    error:string|null
+}
+export type MeResponceType={
+    data:AuthType
+    resultCode: number
+    messages: Array<string>
+}
+export type LoginResponceType={
+    data:{
+        userId:number
+    }
+    resultCode: number
+    messages: Array<string>
 }

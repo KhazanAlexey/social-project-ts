@@ -1,39 +1,47 @@
-import React, {useState, DetailedHTMLProps, InputHTMLAttributes, ChangeEvent} from "react";
+import React, {useState, useEffect, ChangeEvent} from "react";
 
 import s from './ProfileInfo.module.css'
 
 type ProfileStatusType = {
     status: string
-    // updateStatus: (status:string)=>void
+    updateStatus: (status: string) => void
 }
 export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
-const [status,setStatus]=useState('status')
-    const [editMode,setEditmode]=useState(false)
+    console.log("ProfileStatus")
+    const [status, setStatus] = useState('')
+    const [editMode, setEditmode] = useState(false)
+    useEffect(() => {
+        console.log('effect satus profile')
+        if (props.status !== status)
+            setStatus(props.status)
 
-    const onClickHandler=(e: ChangeEvent<HTMLInputElement>)=>{
-   setStatus(e.currentTarget.value)
+    }, [props.status])
+
+    const onClickHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setStatus(e.currentTarget.value)
     }
-    const activateEditMode=()=>{
+    const activateEditMode = () => {
         setEditmode(true)
     }
-    const deactivateEditMode=()=>{
 
-            setEditmode(false)
-        // props.updateStatus(status)
+    const deactivateEditMode = () => {
+
+        setEditmode(false)
+        props.updateStatus(status)
     }
-     return <div className={s.content}>
-                   {!editMode &&
-            <div>
-                <span onDoubleClick={activateEditMode}>{status} </span>
-            </div>
-            }
-            {editMode &&
-            <div>
-                <input onBlur={deactivateEditMode} onChange={onClickHandler} value={status}/>
-            </div>
-            }
-
+    return <div className={s.content}>
+        {!editMode &&
+        <div>
+            <b>Status:</b> <span onDoubleClick={activateEditMode}>{props.status || "----"} </span>
         </div>
+        }
+        {editMode &&
+        <div>
+            <input onBlur={deactivateEditMode} onChange={onClickHandler} autoFocus={true} value={status}/>
+        </div>
+        }
+
+    </div>
 
 }
 

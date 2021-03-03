@@ -45,7 +45,7 @@ const initialState: inittype = {
     users: [],
     pageSize: 5,
     totalCount: 100,
-    currentPage: 2,
+    currentPage: 1,
     isFetching: true,
     followingProgress: [] as Array<number>
 }

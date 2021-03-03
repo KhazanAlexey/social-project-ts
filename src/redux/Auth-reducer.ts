@@ -14,7 +14,7 @@ const initialState: inittype = {
     id: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: true
 }
 export type inittype = AuthType & { isAuth: boolean }
 
@@ -30,6 +30,7 @@ export type ActionsTypes = SETUSERDATAType
 
 export const SetuserData = (data: AuthType): SETUSERDATAType =>
     ({type: SET_USER_DATA, data} as const)
+
 export const getAuthUserData = () => {
     return (dispatch: Dispatch) => {
         authAPI.me()

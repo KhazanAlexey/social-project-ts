@@ -3,11 +3,10 @@ import s from './Profile.module.css'
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
-import {getUserProfile, ProfileType} from "../../redux/profile-reducer";
+import {getUserProfile, getUserstatus, updateStatus, ProfileType} from "../../redux/profile-reducer";
 import {withRouter, RouteComponentProps} from "react-router-dom";
-import { withAuthRedirect } from '../../HOC/WithAuthRedirect';
-import { compose } from 'redux';
-
+import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
+import {compose} from 'redux';
 
 
 type ProfilePropsType = MDTPType & MSTPType
@@ -17,51 +16,48 @@ type PathParamsType = {
 }
 
 type MDTPType = {
-    getUserProfile: (userID:string) => void
+    getUserProfile: (userID: string) => void
+    getUserstatus: (userID: string) => void
+    updateStatus: (status: string) => void
 }
 type MSTPType = {
     profile: ProfileType | null
+    status: string
 }
 type ComonPropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
-function ProfileContainer(props: ComonPropsType) {
+const ProfileContainer=React.memo( function (props: ComonPropsType) {
+    console.log(ProfileContainer)
     useEffect(() => {
         let userId = props.match.params.userId
         if (!userId) {
-            userId = '2'
+            userId = '9600'
         }
+        console.log("use effect")
         props.getUserProfile(userId)
-    },[])
+        props.getUserstatus(userId)
+    }, [props.getUserProfile, props.getUserstatus])
 
 
     return <div className={s.content}>
-        <Profile {...props} profile={props.profile}/>
-
+        <Profile {...props} profile={props.profile} status={props.status} updateStatus={props.updateStatus}
+        />
     </div>
-}
+})
 
 
-
-// let AuthRedirectComponent=withAuthRedirect(ProfileContainer)
 
 
 const MSTP = (state: RootState) => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status
+    }
 }
-}
-
-//
-// let ProfileContainerWithUrl = withRouter(AuthRedirectComponent)
 
 
-// export default connect<MSTPType, MDTPType, {}, RootState>(MSTP, {getUserProfile})(ProfileContainerWithUrl)
-
-//
-// withAuthRedirect(withRouter(connect(MSTP, {getUserProfile})
-// (ProfileContainer)))
 export default compose<React.ComponentType>(
-    connect<MSTPType, MDTPType, {}, RootState>(MSTP, {getUserProfile}),
+    connect<MSTPType, MDTPType, {}, RootState>(MSTP, {getUserProfile, getUserstatus, updateStatus}),
     withRouter,
     withAuthRedirect
 )

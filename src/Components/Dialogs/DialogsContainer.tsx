@@ -7,6 +7,7 @@ import {RootState} from "../../redux/redux-store";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
 import { compose } from "redux";
 
+import {Dispatch} from 'redux'
 
 
 
@@ -27,7 +28,7 @@ const MSTP = (state: RootState) => ({
     messages: state.dialogsPage.messages,
     NewDialogMessage: state.dialogsPage.NewDialogMessage,
 })
-const MDTP = (dispatch: any) => ({
+const MDTP = (dispatch: Dispatch) => ({
     onclickHandler: () => {
         dispatch(AddMessageTypeAC())
     },

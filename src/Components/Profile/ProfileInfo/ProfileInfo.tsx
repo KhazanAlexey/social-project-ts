@@ -2,12 +2,15 @@ import React from "react";
 
 import s from './ProfileInfo.module.css'
 import {Prealoader} from "../../common/Preloader";
-import { ProfileType } from "../../../redux/profile-reducer";
 import {ProfileStatus} from "./ProfileStatus"
 type ProfilePropsType = {
-    profile: ProfileType
+    profile: any
+    status:string
+    updateStatus: (status:string) => void
+
 }
 export const ProfileInfo: React.FC<ProfilePropsType> = (props) => {
+    console.log("ProfileInfo")
     if (!props.profile) {
         return <Prealoader/>
     }
@@ -25,7 +28,7 @@ export const ProfileInfo: React.FC<ProfilePropsType> = (props) => {
                 <div>{props.profile.contacts.github}</div>
                 <div>{props.profile.contacts.website}</div>
                 <div>Looking for a job :{JSON.stringify(props.profile.lookingForAJob)}</div>
-               <ProfileStatus status={'ssss'}/>
+               <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
             </div>
         </div>
 
