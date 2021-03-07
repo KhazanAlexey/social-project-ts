@@ -128,7 +128,7 @@ export function UserReducer(state: inittype = initialState, action: ActionsTypes
             return {...state,
                 followingProgress: action.isFetching ?
                     [...state.followingProgress, action.id] :
-                    [state.followingProgress.filter(u => u.id !== action.id)]
+                    state.followingProgress.filter(u => u !== action.id)
             }
         }
         case "UNFOLLOW":

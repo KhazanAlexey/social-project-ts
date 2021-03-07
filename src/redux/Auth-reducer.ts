@@ -14,7 +14,7 @@ const initialState: inittype = {
     id: null,
     email: null,
     login: null,
-    isAuth: true
+    isAuth: false
 }
 export type inittype = AuthType & { isAuth: boolean }
 

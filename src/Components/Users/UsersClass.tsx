@@ -22,6 +22,7 @@ type propstype = {
 
 const UsersClass:React.FC<propstype> =React.memo(function (props: propstype) {
 //pagination
+    debugger
     let pageCount = Math.ceil(props.totalCount / props.pageSize)
 
     let pages = []
@@ -49,7 +50,7 @@ const UsersClass:React.FC<propstype> =React.memo(function (props: propstype) {
             </NavLink>
             <div>{u.followed
                 ? <button
-                    disabled={props.followingProgress.some(id=>id==u.id)}
+                    disabled={props.followingProgress.some(id=>id===u.id)}
                     onClick={() => {
                         props.toggleisfolowingProgress(true,u.id)
                         UsersAPI.Unfollow(u.id)
@@ -63,7 +64,7 @@ const UsersClass:React.FC<propstype> =React.memo(function (props: propstype) {
                     }}
                 > Unfollow</button>
                 : <button
-                    disabled={props.followingProgress.some(id=>id==u.id)}
+                    disabled={props.followingProgress.some(id=>id===u.id)}
 
                     onClick={() => {
                         props.toggleisfolowingProgress(true,u.id)

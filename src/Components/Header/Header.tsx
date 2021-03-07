@@ -12,7 +12,7 @@ const Header: React.FC<HeaderPropsType> = (props) => {
     const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth)
     useEffect(() => {
         dispatch(getAuthUserData())
-    }, [])
+    }, [dispatch])
     return (
         <header className={s.header}>
             <img src={"https://cdn.mos.cms.futurecdn.net/BVb3Wzn9orDR8mwVnhrSyd-320-80.jpg"}/>
