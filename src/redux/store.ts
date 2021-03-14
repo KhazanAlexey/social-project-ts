@@ -137,8 +137,9 @@ export type UpdateTextMessage = {
 export type ActionsTypes = AddPostActionType | UpdateTextPost | AddMessageActionType | UpdateTextMessage
 
 
+/*
 
-export const store: StoreType={
+export const store: StoreType= {
     _state: {
         profilePage: {
             posts: [
@@ -154,7 +155,7 @@ export const store: StoreType={
 
         },
         dialogsPage: {
-            NewDialogMessage:"yu",
+            NewDialogMessage: "yu",
             messages: [
                 {id: 1, message: "hi"},
                 {id: 2, message: "hi howe are you"},
@@ -172,10 +173,8 @@ export const store: StoreType={
                 {id: 6, name: "Valera"},
             ]
         },
-        sidebar: {
-
-        }
-    },/*
+        sidebar: {}
+    },/!*
  NewPostTextChanger(text:string) {
         this._state.profilePage.newPostText=text
 
@@ -198,20 +197,21 @@ NewMesageChanger (text:string){
         this._state.dialogsPage.NewDialogMessage=text
     this._onChange()
 
-},*/
-    _onChange(){
-        console.log("state chnged")
+},*!/
+        _onChange(){
+            console.log("state chnged")
 
-    },
-    dispatch(action){
-        debugger
-        this._state.dialogsPage=dialogReducer(this._state.dialogsPage,action)
-    },
+        },
+        dispatch(action){
+            debugger
+            this._state.dialogsPage=dialogReducer(this._state.dialogsPage,action)
+        },
 
-    getState(){
-        return this._state
-    },
-    subscribe(callback){
-    this._onChange=callback
+        getState(){
+            return this._state
+        },
+        subscribe(callback){
+        this._onChange=callback
+        }
     }
-}
+}*/

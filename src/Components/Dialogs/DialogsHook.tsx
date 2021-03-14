@@ -12,7 +12,6 @@ export function DialogsHook(props: any) {
 
 
     const dispatch = useDispatch()
-    const NewDialogMessage = useSelector<RootState, string>(state => state.dialogsPage.NewDialogMessage)
     const dialogs = useSelector<RootState, Array<DialogType>>(state => state.dialogsPage.dialogs)
     const messages = useSelector<RootState, Array<MessageType>>(state => state.dialogsPage.messages)
     const users = useSelector<RootState, any>(state => state.usersPage.users)
@@ -45,7 +44,7 @@ alert(isAuth)
 
             {messagesElement}
             <div>
-                <textarea onChange={changeHandler} value={NewDialogMessage}/>
+                <textarea onChange={changeHandler} />
             </div>
             <button onClick={onclickHandler}>Send</button>
         </div>

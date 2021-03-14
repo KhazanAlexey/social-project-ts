@@ -12,15 +12,15 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field placeholder={"login"} name={'login'} component={'input'}/>
             </div>
-            {/*<div>*/}
-            {/*    <Field placeholder={"password"} name={'password'}/>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <Field type={"checkbox"} name={'rememberMe'}/> remember me*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <button>Login</button>*/}
-            {/*</div>*/}
+            <div>
+                <Field placeholder={"password"} name={'password'}  component={'input'}/>
+            </div>
+            <div>
+                <Field type={"checkbox"} name={'rememberMe'} component={'input'}/> remember me
+            </div>
+            <div>
+                <button>Login</button>
+            </div>
 
 
         </form>

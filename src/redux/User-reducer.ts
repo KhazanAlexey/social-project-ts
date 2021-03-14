@@ -91,7 +91,6 @@ let initialStatetype2 = {
     isFetching: true,
     followingProgress: [] as Array<number>
 }
-let initialStateType = typeof initialStatetype2
 export type ActionsTypes = FOLLOWType |
     UNFOLLOWType | SETUSERSType |
     SETPAGEType | SETTOTALCOUNTType |
@@ -124,7 +123,6 @@ export function UserReducer(state: inittype = initialState, action: ActionsTypes
                 })]
             }
         case "TOOGLE_IS_FOLLOWING_PROGRESS": {
-            debugger
             return {...state,
                 followingProgress: action.isFetching ?
                     [...state.followingProgress, action.id] :

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/api";
+import {authAPI, LoginDataType} from "../api/api";
 
 
 const SET_USER_DATA = "SETUSERDATA"
@@ -60,3 +60,17 @@ export function AuthReducer(state: inittype = initialState, action: ActionsTypes
 
 }
 
+/*
+export const SendLoginData = (data:LoginDataType) => {
+    return (dispatch: Dispatch) => {
+        authAPI.login(data)
+            .then((res) => {
+                //isFetching setToogle
+                if(res.data.resultCode ===0) {
+                    dispatch(SetuserData(res.data))
+                }
+
+            })
+
+    }
+}*/

@@ -9,27 +9,23 @@ import {connect} from "react-redux";
 
 
 type MDTPtype = {
-    addPost: () => void
-    newposttextHandler: (text: string) => void
+    addPost: (text: string) => void
 
+}
+type MSTPType = {
+    posts: Array<PostType>
 }
 const MSTP = (state: RootState) => ({
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
     }
 )
-type MSTPType = {
-    posts: Array<PostType>
-    newPostText: string
-}
+
 const MDTP = (dispatch: any) => {
     return {
-        addPost: () => {
-            dispatch(AddPostAC())
+        addPost: (text: string) => {
+            dispatch(AddPostAC(text))
         },
-        newposttextHandler: (text: string) => {
-            dispatch(ChangePostTextAC(text))
-        }
+
     }
 }
 // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>

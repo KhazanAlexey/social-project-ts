@@ -1,41 +1,31 @@
 import React from "react";
-import { DialogType, MessageType} from "../../redux/store";
-import {AddMessageTypeAC, ChangeMessageAc} from "../../redux/dialog-reducer";
+import {DialogType, MessageType} from "../../redux/store";
+import {AddMessageTypeAC, ChangeMessageAc, addMessageAc} from "../../redux/dialog-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
-import { compose } from "redux";
+import {compose} from "redux";
 
 import {Dispatch} from 'redux'
-
-
 
 
 type MSTPType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    NewDialogMessage: string
 
 }
 
 type MDTPType = {
-    onclickHandler: () => void
-    changeHandler: (text: string) => void
+    addMessageAc: (text: string) => void
 }
-const MSTP = (state: RootState) => ({
-    dialogs: state.dialogsPage.dialogs,
-    messages: state.dialogsPage.messages,
-    NewDialogMessage: state.dialogsPage.NewDialogMessage,
-})
-const MDTP = (dispatch: Dispatch) => ({
-    onclickHandler: () => {
-        dispatch(AddMessageTypeAC())
-    },
-    changeHandler: (text: string) => {
-        dispatch(ChangeMessageAc(text))
+
+const MSTP = (state: RootState) => {
+    return {
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages
     }
-})
+}
 
 
 // let AuthRedirectComponent=withAuthRedirect(Dialogs)
@@ -47,5 +37,5 @@ const MDTP = (dispatch: Dispatch) => ({
 
 
 export default compose<React.ComponentType>(
-    connect<MSTPType,MDTPType,{},RootState >(MSTP, MDTP),
+    connect<MSTPType, MDTPType, {}, RootState>(MSTP, {addMessageAc}),
     withAuthRedirect)(Dialogs)

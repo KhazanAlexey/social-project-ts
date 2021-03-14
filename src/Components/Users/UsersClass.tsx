@@ -22,7 +22,6 @@ type propstype = {
 
 const UsersClass:React.FC<propstype> =React.memo(function (props: propstype) {
 //pagination
-    debugger
     let pageCount = Math.ceil(props.totalCount / props.pageSize)
 
     let pages = []

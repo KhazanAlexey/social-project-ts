@@ -1,4 +1,3 @@
-import React from 'react';
 
 export type DialogType = {
     id: number
@@ -15,16 +14,13 @@ export type NewMessageType={
 }
 export type DialogsPageType = {
     messages: Array<MessageType>
-    NewDialogMessage: string
     dialogs: Array<DialogType>
 }
-const ADDPOST="ADDPOST"
-const CHANGEPOSTTEXT="CHANGEPOSTTEXT"
+
 const ADDMESSAGE="ADDMESSAGE"
 const CHANGEMESSAGE="CHANGEMESSAGE"
 
 let initialState: DialogsPageType = {
-    NewDialogMessage: "yu",
     messages: [
         {id: 1, message: "hi"},
         {id: 2, message: "HOOK"},
@@ -44,23 +40,14 @@ let initialState: DialogsPageType = {
 
 }
 
-export type AddPostActionType = {
-    type: typeof ADDPOST
-}
-export type UpdateTextPost = {
-    type: typeof CHANGEPOSTTEXT
-    text: string
-}
 
 
-export type AddMessageActionType = {
-    type: typeof ADDMESSAGE
-}
+
 export type UpdateTextMessage = {
     type: typeof CHANGEMESSAGE
     text: string
 }
-export type ActionsTypes = AddPostActionType | UpdateTextPost | AddMessageActionType | UpdateTextMessage
+export type ActionsTypes = addMessageType
 // export type ActionsTypes = ReturnType<typeof AddMessageTypeAC> | ReturnType<typeof ChangeMessageAc>
 export type returnStateDialogReducerType=typeof initialState
 export const AddMessageTypeAC = () => ({type: "ADDMESSAGE"} as const)
@@ -70,19 +57,22 @@ export const ChangeMessageAc = (text: string) => ({type: "CHANGEMESSAGE", text: 
 export function dialogReducer(state = initialState, action: ActionsTypes):returnStateDialogReducerType {
     switch (action.type) {
         case "ADDMESSAGE":
-            const NewMessage: MessageType = {id: 10, message: state.NewDialogMessage}
+            const NewMessage: MessageType = {id: 10, message: action.text}
             return {
                 ...state,
                 messages:[...state.messages,NewMessage],
-                NewDialogMessage:""
             }
 
-        case "CHANGEMESSAGE":
-            return {
-                ...state,
-                NewDialogMessage: action.text
-            }
+
         default:
             return state
     }
+}
+
+export const addMessageAc=(text:string)=>({type:"ADDMESSAGE",text} as const)
+
+
+type addMessageType= {
+    type: typeof ADDMESSAGE
+    text: string
 }

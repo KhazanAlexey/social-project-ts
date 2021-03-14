@@ -43,6 +43,9 @@ export const UsersAPI = {
 export const authAPI={
     me(){
         return instance.get<MeResponceType>(`auth/me`)
+    },
+    login(data:LoginDataType){
+        return instance.post<LoginResponceType>(`auth/login/`,{data})
     }
 }
 
@@ -76,4 +79,10 @@ export type LoginResponceType={
     }
     resultCode: number
     messages: Array<string>
+}
+export type LoginDataType={
+    email: string
+    password:string
+    rememberMe: boolean
+    captcha?: any
 }

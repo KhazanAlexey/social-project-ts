@@ -1,38 +1,33 @@
-import React, {ChangeEvent, RefObject} from "react";
+import React from "react";
 import s from './MyPosts.module.css';
 import {Post} from "../../Posts/Post/Post";
-import {ActionsTypes, PostType} from "../../../redux/store";
+import { PostType} from "../../../redux/store";
+import {AddMessageReduxForm} from "../../Forms/AddMessageForm";
 
 export type PostsType = {
-    newPostText: string
-    addPost: () => void
+    addPost: (text:string) => void
     posts: Array<PostType>
-    newposttextHandler: (text: string) => void
+}
+type FormDataType= {
+    text: string
 }
 export const Myposts: React.FC<PostsType> = (props) => {
 
     let postElement = props.posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likeCounts} id={p.id}/>)
 
-    function addPost() {
-        props.addPost()
-    }
 
-    const newposttextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if (e.currentTarget) {
-            props.newposttextHandler(e.currentTarget.value)
-        }
-    }
 
+    const onSubmit = (formData: FormDataType) => {
+        props.addPost(formData.text)
+        console.log(formData)
+    }
 
     return <div className={s.postsBlock}>
         my posts
-        <div>
-            <div><textarea value={props.newPostText} onChange={newposttextHandler}/></div>
 
-            <div>
-                <button onClick={addPost}>Addpost</button>
-            </div>
-        </div>
+        <AddMessageReduxForm onSubmit={onSubmit} />
+
+
         <div className={s.posts}>
             {postElement}
 
