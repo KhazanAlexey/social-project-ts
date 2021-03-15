@@ -1,16 +1,19 @@
-import React, {ChangeEvent,useCallback} from "react";
+import React, {ChangeEvent, useCallback} from "react";
 
-import {Field, reduxForm, InjectedFormProps} from 'redux-form'
+import {Field, reduxForm} from 'redux-form'
+import { maxLength60, } from "../../Utils/validators/validator";
+import {TextArea} from "../common/FormsControls/TextArea";
 
 
-const AddMessageForm=(props:any)=>{
-    return(
+const AddMessageForm = (props: any) => {
+    return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name={'text'} component={'textarea'}  placeholder={"введите текст"}  />
+                <Field name={'text'}
+                       validate={[maxLength60]}
+                       component={TextArea} placeholder={"введите текст"}/>
             </div>
             <button>Send</button>
-
 
 
         </form>
@@ -25,7 +28,7 @@ const AddMessageForm=(props:any)=>{
         <AddMessageReduxForm onSubmit={onSubmit} />
     )
 }*/
-type FormDataType={
-    text:string
+type FormDataType = {
+    text: string
 }
 export const AddMessageReduxForm = reduxForm<FormDataType>({form: 'addmessage'})(AddMessageForm)

@@ -36,7 +36,7 @@ const ProfileContainer=React.memo( function (props: ComonPropsType) {
         console.log("use effect")
         props.getUserProfile(userId)
         props.getUserstatus(userId)
-    }, [props.getUserProfile, props.getUserstatus])
+    }, [props.getUserProfile, props.getUserstatus, props.match.params.userId])
 
 
     return <div className={s.content}>
