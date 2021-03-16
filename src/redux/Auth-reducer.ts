@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginDataType} from "../api/api";
-
+import {ThunkDispatch} from "redux-thunk";
 
 const SET_USER_DATA = "SETUSERDATA"
 
@@ -23,6 +23,7 @@ export type AuthType = {
     id: string | null
     email: string | null
     login: string | null
+    isAuth: boolean
 }
 
 export type ActionsTypes = SETUSERDATAType
@@ -36,8 +37,9 @@ export const getAuthUserData = () => {
         authAPI.me()
             .then((res) => {
                 //isFetching setToogle
-                if(res.data.resultCode ===0) {
-                    dispatch(SetuserData(res.data.data))
+                if (res.data.resultCode === 0) {
+                    const result: AuthType = {...res.data.data, isAuth: true}
+                    dispatch(SetuserData(result))
                 }
 
             })
@@ -50,7 +52,7 @@ export function AuthReducer(state: inittype = initialState, action: ActionsTypes
     switch (action.type) {
         case "SETUSERDATA":
             return {
-                ...state, ...action.data, isAuth: true
+                ...state, ...action.data
             }
 
         default:
@@ -60,17 +62,37 @@ export function AuthReducer(state: inittype = initialState, action: ActionsTypes
 
 }
 
-/*
-export const SendLoginData = (data:LoginDataType) => {
-    return (dispatch: Dispatch) => {
+export const SendLoginData = (data: LoginDataType) => {
+    return (dispatch: ThunkDispatch<inittype, void, ActionsTypes>) => {
         authAPI.login(data)
             .then((res) => {
                 //isFetching setToogle
-                if(res.data.resultCode ===0) {
-                    dispatch(SetuserData(res.data))
+                if (res.data.resultCode === 0) {
+
+                    dispatch(getAuthUserData())
+
                 }
+
+            })
+            .catch(e => {
+                console.log(e)
+            })
+
+    }
+}
+
+export const Logout = () => {
+    return (dispatch: ThunkDispatch<inittype, void, ActionsTypes>) => {
+        authAPI.logout()
+            .then((res) => {
+                //isFetching setToogle
+                if (res.data.resultCode === 0) {
+                    const data: AuthType = {id: null, email: null, login: null, isAuth: false}
+                    dispatch(SetuserData(data))
+                }
+
 
             })
 
     }
-}*/
+}

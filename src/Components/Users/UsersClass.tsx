@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {toggleisfolowingProgress, usersTypeRes} from "../../redux/User-reducer";
+import { usersTypeRes} from "../../redux/User-reducer";
 import userPhoto from "../../assets/picture/icons8-user-100.png";
 import styles from "./users.module.css";
 import {UsersAPI} from "../../api/api";

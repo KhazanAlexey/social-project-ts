@@ -1,10 +1,8 @@
 import React, {ChangeEvent,useCallback} from "react";
 import s from './Dialogs.module.css'
-import {ActionsTypes, DialogType, MessageType} from "../../redux/store";
+import { DialogType, MessageType} from "../../redux/store";
 import {DialogItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Messages/Messages";
-import {Field, reduxForm, InjectedFormProps} from 'redux-form'
-import {addMessageAc} from "../../redux/dialog-reducer";
 import {AddMessageReduxForm} from "../Forms/AddMessageForm";
 
 

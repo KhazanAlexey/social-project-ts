@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {Field, reduxForm, InjectedFormProps} from 'redux-form'
 import {requiriedField, minLength5} from "../../Utils/validators/validator";
 import {Input} from '../common/FormsControls/TextArea';
+import { useDispatch, useSelector } from 'react-redux';
+import {SendLoginData} from "../../redux/Auth-reducer";
+import { Redirect, Route } from "react-router";
+import {RootState} from "../../redux/redux-store";
+import {LoginDataType} from "../../api/api";
+
 
 type FormDataType = {
     login: string
@@ -17,7 +23,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 />
             </div>
             <div>
-                <Field placeholder={"password"} name={'password'}
+                <Field placeholder={"password"} name={'password'} type={'password'}
                        validate={[requiriedField,minLength5]}
                        component={Input}/>
 
@@ -37,9 +43,22 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 export const Login = () => {
-    const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+    const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth)
+
+    const dispatch=useDispatch()
+        const onSubmit = useCallback((formData: FormDataType)=> {
+            let Data:LoginDataType = {email: formData.login, password: formData.password, rememberMe: formData.rememberMe}
+            dispatch(SendLoginData(Data))
+
+        },[dispatch]
+
+    )
+    if(isAuth){
+
+       return <Redirect to="/users" />
     }
+
+
     return <div>
         <div><h1>Login</h1></div>
         <LoginReduxForm onSubmit={onSubmit}/>
