@@ -8,3 +8,8 @@
 .form span{
     color: #002aff;
 }
+.formsummaryerror {
+    border: #0037ff 1px solid;
+    padding: 5px;
+    color:  #002aff ;
+}

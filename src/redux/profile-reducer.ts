@@ -100,7 +100,7 @@ export const AddPostAC = (    text: string) => ({type: "ADDPOST",    text} as co
 export const ChangePostTextAC = (text: string) => ({type: "CHANGEPOSTTEXT", text: text} as const)
 export const setUserProfile = (profile: any) => ({type: "SETUSERPROFILE", profile})
 export const setUserStatus = (status: string) => ({type: "SETSTATUS", status})
-export const getUserProfile = (userID: string) => {
+export const getUserProfile = (userID: string|null) => {
     return (dispatch: Dispatch) => {
         UsersAPI.getProfile(userID)
             .then((res) => {
@@ -108,7 +108,7 @@ export const getUserProfile = (userID: string) => {
             })
     }
 }
-export const getUserstatus =(userId:string)=>{
+export const getUserstatus =(userId:string|null)=>{
     return (dispatch:Dispatch)=>{
         profileAPI.getStatus(userId)
             .then((res)=>{

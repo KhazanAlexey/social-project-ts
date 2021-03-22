@@ -4,9 +4,10 @@ import {requiriedField, minLength5} from "../../Utils/validators/validator";
 import {Input} from '../common/FormsControls/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
 import {SendLoginData} from "../../redux/Auth-reducer";
-import { Redirect, Route } from "react-router";
+import { Redirect} from "react-router";
 import {RootState} from "../../redux/redux-store";
 import {LoginDataType} from "../../api/api";
+import style from "../common/FormsControls/FormsControls.module.css"
 
 
 type FormDataType = {
@@ -31,6 +32,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type={"checkbox"} name={'rememberMe'} component={Input}/> remember me
             </div>
+            {props.error&&<div className={style.formsummaryerror}>
+                {props.error}
+            </div>}
             <div>
                 <button>Login</button>
             </div>
@@ -55,7 +59,7 @@ export const Login = () => {
     )
     if(isAuth){
 
-       return <Redirect to="/users" />
+       return <Redirect to="/profile" />
     }
 
 

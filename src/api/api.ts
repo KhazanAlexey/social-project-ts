@@ -33,7 +33,7 @@ export const UsersAPI = {
             .then(res => res.data)
 
     },
-    getProfile(userId:string){
+    getProfile(userId:string|null){
         return profileAPI.getProfile(userId)
     }
 
@@ -56,10 +56,10 @@ export const authAPI={
 
 
 export const profileAPI= {
-    getProfile(userId:string){
+    getProfile(userId:string|null){
         return instance.get(`profile/${userId}`)
     },
-    getStatus(userId:string){
+    getStatus(userId:string|null){
         return instance.get(`profile/status/${userId}`)
     },
     updateStatus(status:string){
