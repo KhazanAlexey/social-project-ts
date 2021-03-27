@@ -6,6 +6,8 @@ interface RenderFieldProps extends WrappedFieldProps {
 };
 
 export const TextArea =(props:RenderFieldProps)=>{
+    debugger
+
     return(
         <div className={style.form}>
             <div className={props.meta.error&&props.meta.touched?style.error:""}>
@@ -20,10 +22,10 @@ export const TextArea =(props:RenderFieldProps)=>{
 }
 
 export const Input = (props:RenderFieldProps) =>{
-
     return(
         <div className={style.form}>
             <div className={props.meta.error&&props.meta.touched?style.error:""}>
+
                 <input {...props.input}  {...props}/>
             </div>
             <div>

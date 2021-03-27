@@ -34,6 +34,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             </div>
             {props.error&&<div className={style.formsummaryerror}>
                 {props.error}
+
             </div>}
             <div>
                 <button>Login</button>

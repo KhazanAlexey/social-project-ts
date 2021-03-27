@@ -13,6 +13,14 @@ import {RootState} from "../../redux/redux-store";
 import UsersClass from "./UsersClass";
 import {Prealoader} from "../common/Preloader";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingProgress,
+    getisFetching,
+    getPagesize,
+    getTotalCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 
 type MSTPType = {
@@ -98,14 +106,12 @@ class UsersContainer extends React.Component<propstype, any> {
 
 const MSTP = (state: RootState) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalCount: state.usersPage.totalCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress
-
-
+        users: getUsers(state),
+        pageSize: getPagesize(state),
+        totalCount: getTotalCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getisFetching(state),
+        followingProgress: getFollowingProgress(state)
     }
 }
 
