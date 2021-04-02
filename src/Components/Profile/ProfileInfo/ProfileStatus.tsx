@@ -25,7 +25,6 @@ export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
     }
 
     const deactivateEditMode = () => {
-
         setEditmode(false)
         props.updateStatus(status)
     }
@@ -37,10 +36,14 @@ export const ProfileStatus: React.FC<ProfileStatusType> = (props) => {
         }
         {editMode &&
         <div>
-            <input onBlur={deactivateEditMode} onChange={onClickHandler} autoFocus={true} value={status}/>
+            <input onBlur={deactivateEditMode}
+                   onChange={onClickHandler}
+                   autoFocus={true}
+                   value={status}/>
         </div>
         }
-
+<div> local status {status}</div>
+<div>props status {props.status}</div>
     </div>
 
 }

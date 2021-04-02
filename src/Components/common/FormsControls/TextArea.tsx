@@ -6,7 +6,6 @@ interface RenderFieldProps extends WrappedFieldProps {
 };
 
 export const TextArea =(props:RenderFieldProps)=>{
-    debugger
 
     return(
         <div className={style.form}>

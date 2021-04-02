@@ -56,7 +56,7 @@ let initialState: ProfilePageType = {
         {id: 5, message: "youuu", likeCounts: 15},
         {id: 6, message: "meas6", likeCounts: 15},
     ],
-    status: 'new'
+    status: 'new2'
 
 }
 export type returnStateProfilereducerType = typeof initialState
