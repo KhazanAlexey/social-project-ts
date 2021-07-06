@@ -7,7 +7,7 @@ import {
     UnfollowAc,
     usersTypeRes,
     toggleisfolowingProgress,
-    getUsersTC
+    getUsersTC, UnfollowTC, FollowTC
 } from "../../redux/User-reducer";
 import {RootState} from "../../redux/redux-store";
 import UsersClass from "./UsersClass";
@@ -34,21 +34,19 @@ type MSTPType = {
 
 }
 type MDTPType = {
-    follow: (id: number) => void
-    unfollow: (id: number) => void
     setCurrentPage: (page: number) => void
     setTotalCount: (count: number) => void
     // setToogle: (isFetching: boolean) => void
     toggleisfolowingProgress: (ifFetching: boolean, id: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
+    UnfollowTC: (id: number) => void
+    FollowTC: (id: number) => void
 
 }
 
 
 type propstype = {
     users: Array<usersTypeRes>
-    follow: (id: number) => void
-    unfollow: (id: number) => void
     pageSize: number
     totalCount: number
     currentPage: number
@@ -58,7 +56,8 @@ type propstype = {
     toggleisfolowingProgress: (isFetching: boolean, id: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
     followingProgress: Array<number>
-
+    UnfollowTC: (id: number) => void
+    FollowTC: (id: number) => void
 }
 
 
@@ -83,8 +82,6 @@ class UsersContainer extends React.Component<propstype, any> {
             {this.props.isFetching ? <Prealoader/> : <div>
                 <UsersClass users={this.props.users}
                             onPageChanged={this.onPageChanged}
-                            follow={this.props.follow}
-                            unfollow={this.props.unfollow}
                             pageSize={this.props.pageSize}
                             totalCount={this.props.totalCount}
                             currentPage={this.props.currentPage}
@@ -92,10 +89,13 @@ class UsersContainer extends React.Component<propstype, any> {
                             toggleisfolowingProgress={this.props.toggleisfolowingProgress}
                             setTotalCount={this.props.setTotalCount}
                             followingProgress={this.props.followingProgress}
-                />
+                            UnfollowTC={this.props.UnfollowTC}
+                            FollowTC={this.props.FollowTC}
+
+            />
 
 
-            </div>}
+                </div>}
 
         </>
     }
@@ -129,12 +129,13 @@ const MSTP = (state: RootState) => {
 export default compose<React.ComponentType>(
     connect<MSTPType, MDTPType, {}, RootState>(MSTP,
         {
-            follow: FollowAc,
-            unfollow: UnfollowAc,
+
             setCurrentPage: SetCurrentPageAc,
             setTotalCount: setTotalCount,
             toggleisfolowingProgress: toggleisfolowingProgress,
-            getUsersTC: getUsersTC
+            getUsersTC: getUsersTC,
+            UnfollowTC: UnfollowTC,
+            FollowTC: FollowTC
         })
 )
 

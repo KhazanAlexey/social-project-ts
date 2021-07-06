@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -11,11 +11,11 @@ import UsersContainer from './Components/Users/Users-container';
 import {DialogsHook} from "./Components/Dialogs/DialogsHook";
 import ProfileContainerWithUrl from "./Components/Profile/Profile-Container";
 import {Login} from "./Components/Login/Login";
-import {getAuthUserData} from "./redux/Auth-reducer";
 import {initializeApp} from "./redux/app-reducer";
 import {RootState} from "./redux/redux-store";
 import {Prealoader} from "./Components/common/Preloader";
-
+import News from "./Components/News/News";
+import { Files } from "./Components/Files/Files";
 
 
 function App() {
@@ -38,7 +38,9 @@ const initialized=useSelector<RootState,boolean>(state=>state.app.initialized)
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainerWithUrl
+
+                    <Route path='/news/:link?' render={()=><News/>}/>
+                    <Route exact path='/profile/:userId?' render={() => <ProfileContainerWithUrl
                        />}/>
                        <Route path='/dialogsHook' render={() => <DialogsHook
                        />}/>
@@ -46,6 +48,7 @@ const initialized=useSelector<RootState,boolean>(state=>state.app.initialized)
                     />}/>
                     <Route path='/users' render={()=><UsersContainer/>}/>
                     <Route path='/login' render={()=><Login/>}/>
+                    <Route path='/files' render={()=><Files/>}/>
 
                 </div>
             </div>

@@ -3,6 +3,8 @@ import s from './MyPosts.module.css';
 import {Post} from "../../Posts/Post/Post";
 import { PostType} from "../../../redux/store";
 import {AddMessageReduxForm} from "../../Forms/AddMessageForm";
+import {reset} from 'redux-form';
+import { useDispatch } from "react-redux";
 
 export type PostsType = {
     addPost: (text:string) => void
@@ -12,14 +14,15 @@ type FormDataType= {
     text: string
 }
 export const Myposts: React.FC<PostsType> = (props) => {
-
+const dispatch=useDispatch()
     let postElement = props.posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likeCounts} id={p.id}/>)
 
 
 
-    const onSubmit = (formData: FormDataType) => {
+    const onSubmit =  (formData: FormDataType) => {
         props.addPost(formData.text)
-        console.log(formData)
+        dispatch(reset('addmessage'));
+
     }
 
     return <div className={s.postsBlock}>

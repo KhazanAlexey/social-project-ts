@@ -32,15 +32,14 @@ export type ActionsTypes = SETUSERDATAType
 export const SetuserData = (data: AuthType): SETUSERDATAType =>
     ({type: SET_USER_DATA, data} as const)
 
-export const getAuthUserData = () => (dispatch: Dispatch) => {
-       return  authAPI.me()
-            .then((res) => {
+export const getAuthUserData = () => async (dispatch: Dispatch) => {
+        const res= await authAPI.me()
                 //isFetching setToogle
                 if (res.data.resultCode === 0) {
                     const result: AuthType = {...res.data.data, isAuth: true}
                     dispatch(SetuserData(result))
                 }
-            })
+
     }
 
 export function AuthReducer(state: inittype = initialState, action: ActionsTypes): inittype {
@@ -56,14 +55,11 @@ export function AuthReducer(state: inittype = initialState, action: ActionsTypes
 }
 // export function stopSubmit(form: string, errors?: Object): Action;
 export const SendLoginData = (data: LoginDataType) => {
-    return (dispatch: ThunkDispatch<inittype, void, ActionsTypes | FormAction>) => {
+    return async (dispatch: ThunkDispatch<inittype, void, ActionsTypes | FormAction>) => {
         // let action=stopSubmit("login",{_error:'incorrect email or password  '})
         // dispatch(action)
 
-
-
-        authAPI.login(data)
-            .then((res) => {
+      const res=await authAPI.login(data)
                 //isFetching setToogle
                 if (res.data.resultCode === 0) {
                     dispatch(getAuthUserData())
@@ -73,10 +69,7 @@ export const SendLoginData = (data: LoginDataType) => {
                     let action=stopSubmit('login',{_error:message})
                     dispatch(action)
                 }
-            })
-            .catch(e => {
-                console.log(e)
-            })
+
 
     }
 }

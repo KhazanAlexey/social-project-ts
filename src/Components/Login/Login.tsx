@@ -49,9 +49,9 @@ const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 export const Login = () => {
     const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth)
-
     const dispatch=useDispatch()
-        const onSubmit = useCallback((formData: FormDataType)=> {
+
+    const onSubmit = useCallback((formData: FormDataType)=> {
             let Data:LoginDataType = {email: formData.login, password: formData.password, rememberMe: formData.rememberMe}
             dispatch(SendLoginData(Data))
 
@@ -64,7 +64,7 @@ export const Login = () => {
     }
 
 
-    return <div>
+    return <div className={style.loginwrap}>
         <div><h1>Login</h1></div>
         <LoginReduxForm onSubmit={onSubmit}/>
 

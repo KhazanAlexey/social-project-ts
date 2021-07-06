@@ -25,7 +25,7 @@ type MSTPType = ReturnType<typeof MSTP>
 type ComonPropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
 const ProfileContainer=React.memo( function (props: ComonPropsType) {
-    console.log(ProfileContainer)
+    console.log("ProfileContainer")
     useEffect(() => {
         let userId:string|null = props.match.params.userId
         if (!userId) {

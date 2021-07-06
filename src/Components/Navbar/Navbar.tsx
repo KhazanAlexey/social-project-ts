@@ -1,6 +1,7 @@
 import React from "react";
 import s from './Navbar.module.css';
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
+
 type NavbarPropsType = {}
 export const Navbar: React.FC<NavbarPropsType> = (props) => {
     return (
@@ -11,15 +12,19 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
             <div className={s.item}>
                 <NavLink to="/profile" activeClassName={s.active}>Profile</NavLink>
             </div>
-            <div className={s.item}  >
+            <div className={s.item}>
                 <NavLink to="/dialogs" activeClassName={s.active}>Messages</NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to="/news" activeClassName={s.active}>News</NavLink>
 
             </div>
-<div className={s.item}>
+            <div className={s.item}>
                 <NavLink to="/dialogsHook" activeClassName={s.active}>dialogshook</NavLink>
+
+            </div>
+            <div className={s.item}>
+                <NavLink to="/files" activeClassName={s.active}>Files</NavLink>
 
             </div>
 

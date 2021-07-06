@@ -1,0 +1,6 @@
+.formwrap form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2em;
+
+}

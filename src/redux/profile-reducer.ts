@@ -96,34 +96,28 @@ export type ActionsTypes =
 // export type ActionsTypes = ReturnType<typeof AddPostAC> | ReturnType<typeof ChangePostTextAС>
 
 
-export const AddPostAC = (    text: string) => ({type: "ADDPOST",    text} as const)
+export const AddPostAC = (text: string) => ({type: "ADDPOST", text} as const)
 export const ChangePostTextAC = (text: string) => ({type: "CHANGEPOSTTEXT", text: text} as const)
 export const setUserProfile = (profile: any) => ({type: "SETUSERPROFILE", profile})
 export const setUserStatus = (status: string) => ({type: "SETSTATUS", status})
-export const getUserProfile = (userID: string|null) => {
-    return (dispatch: Dispatch) => {
-        UsersAPI.getProfile(userID)
-            .then((res) => {
-                dispatch(setUserProfile(res.data))
-            })
+export const getUserProfile = (userID: string | null) => {
+    return async (dispatch: Dispatch) => {
+        const res = await UsersAPI.getProfile(userID)
+        dispatch(setUserProfile(res.data))
     }
 }
-export const getUserstatus =(userId:string|null)=>{
-    return (dispatch:Dispatch)=>{
-        profileAPI.getStatus(userId)
-            .then((res)=>{
-                dispatch(setUserStatus(res.data))
-            })
+export const getUserstatus = (userId: string | null) => {
+    return async (dispatch: Dispatch) => {
+        const res = await profileAPI.getStatus(userId)
+        dispatch(setUserStatus(res.data))
     }
 }
-export const updateStatus = (status:string)=>{
-    return (dispatch:Dispatch)=>{
-        profileAPI.updateStatus(status)
-            .then((res)=>{
-                if(res.data.resultCode===0){
-                    dispatch(setUserStatus(status))
-                }
-            })
+export const updateStatus = (status: string) => {
+    return async (dispatch: Dispatch) => {
+        const res = await profileAPI.updateStatus(status)
+        if (res.data.resultCode === 0) {
+            dispatch(setUserStatus(status))
+        }
     }
 }
 
@@ -144,8 +138,8 @@ export function profileReducer(state = initialState, action: ActionsTypes): retu
                 ...state, profile: action.profile
             }
         }
-        case "SETSTATUS":{
-            return {...state,status:action.status}
+        case "SETSTATUS": {
+            return {...state, status: action.status}
         }
         default:
             return state
