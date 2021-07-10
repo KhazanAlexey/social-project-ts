@@ -13,28 +13,32 @@ export type PostsType = {
 type FormDataType= {
     text: string
 }
-export const Myposts: React.FC<PostsType> = (props) => {
-const dispatch=useDispatch()
-    let postElement = props.posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likeCounts} id={p.id}/>)
+export const Myposts=React.memo(
+    (props:PostsType) => {
+        console.log('my post')
+
+        const dispatch=useDispatch()
+        let postElement = props.posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likeCounts} id={p.id}/>)
 
 
 
-    const onSubmit =  (formData: FormDataType) => {
-        props.addPost(formData.text)
-        dispatch(reset('addmessage'));
+        const onSubmit =  (formData: FormDataType) => {
+            props.addPost(formData.text)
+            dispatch(reset('addmessage'));
 
-    }
+        }
 
-    return <div className={s.postsBlock}>
-        my posts
+        return <div className={s.postsBlock}>
+            my posts
 
-        <AddMessageReduxForm onSubmit={onSubmit} />
-
-
-        <div className={s.posts}>
-            {postElement}
+            <AddMessageReduxForm onSubmit={onSubmit} />
 
 
+            <div className={s.posts}>
+                {postElement}
+
+
+            </div>
         </div>
-    </div>
-}
+    }
+)

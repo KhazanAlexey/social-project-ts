@@ -4,6 +4,7 @@ import {usersTypeRes} from "../../redux/User-reducer";
 import userPhoto from "../../assets/picture/icons8-user-100.png";
 import styles from "./users.module.css";
 import {UsersAPI} from "../../api/api";
+import Paginator from "../common/Paginator/Paginator";
 
 type propstype = {
     users: Array<usersTypeRes>
@@ -19,47 +20,14 @@ type propstype = {
     UnfollowTC: (id: number) => void
     FollowTC: (id: number) => void
 }
-export function createPages(pages:Array<number>, pagesCount:number, currentPage:number) {
-    if(pagesCount > 10) {
-        if(currentPage > 5) {
-            for (let i = currentPage-4; i <= currentPage+5; i++) {
-                pages.push(i)
-                if(i == pagesCount) break
-            }
-        }
-        else {
-            for (let i = 1; i <= 10; i++) {
-                pages.push(i)
-                if(i == pagesCount) break
-            }
-        }
-    }  else {
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
-    }
-}
 
 const UsersClass: React.FC<propstype> = React.memo(function (props: propstype) {
-//pagination
-    let pageCount = Math.ceil(props.totalCount / props.pageSize)
 
-    let pages:Array<number> = []
-    createPages(pages, pageCount, props.currentPage)
-
-    // for (let i = 1; i <= pageCount; i++) {
-    //     pages.push(i)
-    // }
     return <div>
-        <div>
-            {pages.map(p => {
-                return (
-                    <span key={p} onClick={() => {
-                        props.onPageChanged(p)
-                    }} className={props.currentPage === p ? styles.selected : ""}>{p}</span>
-                )
-            })}
-        </div>
+
+
+        <Paginator currentPage={props.currentPage} setCurrentPage={props.setCurrentPage} onPageChanged={props.onPageChanged}
+        pageSize={props.pageSize} totalCount={props.totalCount} setTotalCount={props.setTotalCount}/>
         {props.users.map(u => <div key={u.id}>
 
             <NavLink to={'/profile/' + u.id}>

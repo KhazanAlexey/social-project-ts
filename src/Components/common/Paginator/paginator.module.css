@@ -1,0 +1,30 @@
+
+.selectedPage {
+    font-weight: bold;
+    cursor: pointer;
+    color: gold;
+}
+.hoverPage:hover{
+    cursor: pointer;
+    color: aquamarine;
+}
+.pages {
+   /* color: brown;
+    float: left;
+    display: block;*/
+}
+.selected {
+    font-weight: bold;
+    cursor: pointer;
+    color: gold;
+    border: 1px solid;
+    margin: 5px;
+    padding: 1px;
+}
+.pagenumber{
+    border: 1px solid;
+    margin: 5px;
+    padding: 1px;
+    cursor: pointer;
+
+}
