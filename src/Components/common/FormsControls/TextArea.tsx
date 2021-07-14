@@ -1,5 +1,5 @@
 import React from "react";
-import {WrappedFieldProps } from "redux-form";
+import {WrappedFieldProps, Field } from "redux-form";
 import style from "./FormsControls.module.css"
 interface RenderFieldProps extends WrappedFieldProps {
     type: string
@@ -35,4 +35,18 @@ export const Input = (props:RenderFieldProps) =>{
     )
 }
 
+type FieldType={
+    placeholder:string
+    name:string,
+    component:any
+    props?:object
+    text?:string
+}
+export const createField=({placeholder,name,component,props={},text=''}:FieldType)=>(
+    <div>
+        <Field placeholder={placeholder} name={name} component={component}
+               {...props}
+        />{text}
+    </div>
+)
 

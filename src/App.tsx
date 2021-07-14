@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 
 import Header from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
-import {BrowserRouter, Route} from 'react-router-dom';
+import {HashRouter, Route} from 'react-router-dom';
 // import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from './Components/Users/Users-container';
 import {DialogsHook} from "./Components/Dialogs/DialogsHook";
@@ -35,12 +35,11 @@ const initialized=useSelector<RootState,boolean>(state=>state.app.initialized)
 
 
         <Suspense fallback={<Prealoader/>}>
-            <BrowserRouter>
+            <HashRouter>
                 <div className='app-wrapper'>
                     <Header/>
                     <Navbar/>
                     <div className='app-wrapper-content'>
-
                         <Route path='/news/:link?' render={() => <News/>}/>
                         <Route exact path='/profile/:userId?' render={() => <ProfileContainerWithUrl
                         />}/>
@@ -54,7 +53,7 @@ const initialized=useSelector<RootState,boolean>(state=>state.app.initialized)
 
                     </div>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         </Suspense>
     )
 }

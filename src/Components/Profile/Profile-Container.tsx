@@ -3,10 +3,11 @@ import s from './Profile.module.css'
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
-import {getUserProfile, getUserstatus, updateStatus} from "../../redux/profile-reducer";
+import {getUserProfile, getUserstatus, savePhoto, saveProfileInfo, updateStatus} from "../../redux/profile-reducer";
 import {withRouter, RouteComponentProps} from "react-router-dom";
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 import {compose} from 'redux';
+import {ProfileDataFormType} from "./ProfileInfo/ProfileInfoDataForm";
 
 
 type ProfilePropsType = MDTPType & MSTPType
@@ -20,6 +21,8 @@ type MDTPType = {
     getUserProfile: (userID: string| null) => void
     getUserstatus: (userID: string|null) => void
     updateStatus: (status: string) => void
+    savePhoto: (foto:any)=> void
+    saveProfileInfo:(formData: ProfileDataFormType)=>void
 }
 type MSTPType = ReturnType<typeof MSTP>
 type ComonPropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
@@ -42,9 +45,11 @@ const ProfileContainer=React.memo( function (props: ComonPropsType) {
 
     return <div className={s.content}>
         <Profile {...props} profile={props.profile}
+                 isowner={!!props.match.params.userId}
                  status={props.status}
                  updateStatus={props.updateStatus}
-        />
+                 savePhoto={props.savePhoto}
+                 saveProfileInfo={props.saveProfileInfo}/>
     </div>
 })
 
@@ -63,7 +68,7 @@ const MSTP = (state: RootState) => {
 
 
 export default compose<React.ComponentType>(
-    connect<MSTPType, MDTPType, {}, RootState>(MSTP, {getUserProfile, getUserstatus, updateStatus}),
+    connect<MSTPType, MDTPType, {}, RootState>(MSTP, {getUserProfile,savePhoto,saveProfileInfo, getUserstatus, updateStatus}),
     withRouter,
     withAuthRedirect
 )

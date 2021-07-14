@@ -1,6 +1,7 @@
 import axios from "axios"
 import {userType} from "../redux/User-reducer";
 import { AuthType } from "../redux/Auth-reducer";
+import {ProfileDataFormType} from "../Components/Profile/ProfileInfo/ProfileInfoDataForm";
 
 export type PropsType = {
     currentPage: number
@@ -64,6 +65,17 @@ export const profileAPI= {
     },
     updateStatus(status:string){
         return instance.put(`profile/status`,{status:status})
+    },
+    savePhoto(photo:any){
+        const formData=new FormData()
+        formData.append('image',photo)
+        return instance.put(`profile/photo`,formData,{headers:{
+            'Content-Type': 'multipart/form-data'
+            }})
+    },
+    saveProfile(profile:ProfileDataFormType){
+        return instance.put('profile',profile)
+
     }
 }
 
