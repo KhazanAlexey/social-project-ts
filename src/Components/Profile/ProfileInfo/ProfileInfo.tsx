@@ -1,12 +1,11 @@
-import React, {useRef, useState, useCallback} from "react";
+import React, {useRef, useState} from "react";
 import userPhoto from "../../../assets/picture/icons8-user-100.png";
 import s from './ProfileInfo.module.css'
 import {Prealoader} from "../../common/Preloader";
 import {ProfileStatus} from "./ProfileStatus"
-import {ContactsType, ProfileType} from "../../../redux/profile-reducer";
-import {ProfileDataForm, ProfileDataFormReduxForm, ProfileDataFormType} from "./ProfileInfoDataForm";
-import {LoginDataType} from "../../../api/api";
-import {SendLoginData} from "../../../redux/Auth-reducer";
+import { ProfileType} from "../../../redux/profile-reducer";
+import { ProfileDataFormReduxForm, ProfileDataFormType} from "./ProfileInfoDataForm";
+
 
 type ProfilePropsType = {
     profile: any
@@ -69,12 +68,9 @@ export const ProfileInfo: React.FC<ProfilePropsType> = (props) => {
                     <ProfileData goToEditmode={() => seteditMode(true)} profile={props.profile}
                                  isOwner={props.isowner}/>
             }
-
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         </div>
-
     </div>
-
 }
 type ContactType = {
     contactTitle: string
@@ -83,7 +79,6 @@ type ContactType = {
 
 const Contact: React.FC<ContactType> = ({contactTitle, value}) => {
     return (
-
         <div className={s.contact}>
             <b>{contactTitle}</b>: {value}
         </div>
@@ -102,7 +97,6 @@ const ProfileData: React.FC<ProfileDataType> = (props) => {
         </div>}
         <div><b>Full name</b> :{props.profile.fullName}            </div>
         <div><b>Contacts:</b></div>
-
 
         {Object.keys(props.profile.contacts).map(key => <Contact key={key} contactTitle={key}
                                                                  value={props.profile.contacts[key]}/>

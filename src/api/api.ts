@@ -78,7 +78,16 @@ export const profileAPI= {
 
     }
 }
+export const securityAPI={
+    grtCaptchaURL(){
+        return instance.get<CaptchaResponseType>(`security/get-captcha-url`)
+    }
+}
 
+
+export type CaptchaResponseType={
+    url:string
+}
 export type GetItemsType={
     items:Array<userType>
     totalCount:number
@@ -100,7 +109,7 @@ export type LoginDataType={
     email: string
     password:string
     rememberMe: boolean
-    captcha?: any
+    captcha?: string|null
 }
  export type  LogoutResponceType ={
      resultCode: number

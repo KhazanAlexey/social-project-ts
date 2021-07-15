@@ -14,8 +14,14 @@ type FormDataType = {
     login: string
     password: string
     rememberMe: boolean
+    captchaURL:string|null
+
 }
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+type IPropsType={
+    captchaURL:string|null
+
+}
+const LoginForm: React.FC<InjectedFormProps<FormDataType,IPropsType>&IPropsType> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -36,6 +42,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 {props.error}
 
             </div>}
+            {props.captchaURL&& <img src={props.captchaURL}/>}
+            {props.captchaURL&&   <Field placeholder={"antiBotSymbols"} name={'captchaURL'} component={Input}
+                                         validate={[requiriedField]}
+
+            />}
             <div>
                 <button>Login</button>
             </div>
@@ -45,14 +56,15 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     )
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
+const LoginReduxForm = reduxForm<FormDataType,IPropsType>({form: 'login'})(LoginForm)
 
 export const Login = () => {
     const isAuth = useSelector<RootState, boolean>(state => state.auth.isAuth)
+    const captchaURL = useSelector<RootState, string|null>(state => state.auth.captchaURL)
     const dispatch=useDispatch()
 
     const onSubmit = useCallback((formData: FormDataType)=> {
-            let Data:LoginDataType = {email: formData.login, password: formData.password, rememberMe: formData.rememberMe}
+            let Data:LoginDataType = {email: formData.login, password: formData.password, rememberMe: formData.rememberMe,captcha:formData.captchaURL}
             dispatch(SendLoginData(Data))
 
         },[dispatch]
@@ -66,7 +78,7 @@ export const Login = () => {
 
     return <div className={style.loginwrap}>
         <div><h1>Login</h1></div>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaURL={captchaURL}/>
 
     </div>
 }
