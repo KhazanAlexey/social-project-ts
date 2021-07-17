@@ -19,10 +19,7 @@ export const Navbar: React.FC<NavbarPropsType> = (props) => {
                 <NavLink to="/news" activeClassName={s.active}>News</NavLink>
 
             </div>
-            <div className={s.item}>
-                <NavLink to="/dialogsHook" activeClassName={s.active}>dialogshook</NavLink>
 
-            </div>
             <div className={s.item}>
                 <NavLink to="/files" activeClassName={s.active}>Files</NavLink>
 

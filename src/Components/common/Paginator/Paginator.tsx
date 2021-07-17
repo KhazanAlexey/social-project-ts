@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import {NavLink} from "react-router-dom";
-import userPhoto from "../../assets/picture/icons8-user-100.png";
+import React from "react";
 import styles from "./paginator.module.css";
+import cn from 'classnames'
 
 type propstype = {
 
@@ -60,7 +59,15 @@ const Paginator: React.FC<propstype> = React.memo(function (props: propstype) {
                 )
             })}
         </div>
-
+        <div>
+            {pages.map(p => {
+                return (
+                    <span key={p} onClick={() => {
+                        props.onPageChanged(p)
+                    }} className={cn( {[styles.selected] : props.currentPage === p },styles.pagenumber)}>{p}</span>
+                )
+            })}
+        </div>
 
     </div>
 })
